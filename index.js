@@ -14,8 +14,10 @@ Go code!
 */
 
 const express = require('express');
-
 const server = express();
+
+const projectsRouter = require('./data/routers/projectsRouter');
+server.use('/projects', projectsRouter);
 
 server.get('/', (req, res) => {
     res.send('Hello from Express');
