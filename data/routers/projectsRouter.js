@@ -20,21 +20,15 @@ router.get('/:id', (req, res) => {
 
 // POST new project (add new project)
 router.post('/', (req, res) => {
-    projUtils.get()
-        .then(project => {
-            if (!req.body.name || !req.body.description) {
-                res.status(400).json({message: "Missing project name or description"})
-            } else {
-                projUtils.insert(req.body)
-                    .then(project => res.status(201).json(project))
-                    .catch(error => {
-                        res.status(500).json({message: "Project was not added"})
-                    })
-            }
-        })
-        .catch(error => {
-            res.status(500).json({message: "The server has experienced an error"})
-        })
+    let project = req.body;
+
+    if(!project.name || !project.description) {
+        res.status(400).json({message: "Missing project name or description"})
+    }
+
+    projUtils.insert(project)
+        .then(project => res.status(201).json(project))
+        .catch(error => res.status(500).json({message: "Project was not added", error}))
 })
 
 // DELETE project
