@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-// import helpers from projectModel
+// import helpers from actionModel
 const actionUtils = require('../helpers/actionModel');
 
-// GET array of projects
+// GET array of actions
 router.get('/', (req, res) => {
-    actionUtils.get()
-        .then(project => res.status(200).json(project))
-        .catch(error => res.status(500).json({message: "Error retrieving projects"}))
+    const project_id = Number(req.params.project_id);
+    actionUtils.get(project_id)
+        .then(action => res.status(200).json(action))
+        .catch(error => res.status(500).json({message: "Error retrieving actions"}))
 })
 
 // GET project by ID
