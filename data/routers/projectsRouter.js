@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     let project = req.body;
 
-    if(!project.id) {
+    if(!req.params.id) {
         res.status(400).json({message: "Missing project ID"})
     }
 

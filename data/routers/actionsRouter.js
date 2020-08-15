@@ -33,13 +33,13 @@ router.get('/:id', (req, res) => {
 })
 
 // POST new action (add new action)
-router.post('/', (req, res) => {
+router.post('/:project_id', (req, res) => {
     let action = req.body;
-    action.project_id = req.params.project_id;
-    console.log('req: ', req.params.project_id);
+    action.project_id = Number(req.params.project_id);
+    console.log('params.project_id: ', req.params.project_id);
     console.log('action: ', action);
 
-    if(!action.name || !action.project_id) {
+    if(!action.description || !action.project_id) {
         res.status(400).json({message: "Missing action name or associated project"})
     }
 
