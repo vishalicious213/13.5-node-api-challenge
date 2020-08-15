@@ -37,4 +37,11 @@ router.delete('/:id', (req, res) => {
         .then(project => res.status(200).json({message: "The project was deleted"}))
 })
 
+// GET project actions
+router.get('/:id/actions', (req, res) => {
+    projUtils.getProjectActions(req.params.id)
+        .then(actions => res.status(200).json(actions))
+        .catch(error => res.status(500).json({message: "Unable to find project's actions"}))
+})
+
 module.exports = router;
