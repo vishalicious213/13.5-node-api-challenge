@@ -17,8 +17,10 @@ const express = require('express');
 const server = express();
 
 const projectsRouter = require('./data/routers/projectsRouter');
+const actionsRouter = require('./data/routers/actionsRouter');
 server.use(express.json());
 server.use('/projects', projectsRouter);
+server.use('/projects/actions', actionsRouter);
 
 server.get('/', (req, res) => {
     res.send('Hello from Express');
