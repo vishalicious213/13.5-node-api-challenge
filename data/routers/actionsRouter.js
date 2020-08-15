@@ -32,23 +32,27 @@ router.get('/:id', (req, res) => {
         .catch(error => res.status(500).json({message: "Unable to find action"}))
 })
 
-// POST new project (add new project)
+// POST new action (add new action)
 router.post('/', (req, res) => {
-    let project = req.body;
+    let action = req.body;
+    action.project_id = req.params.project_id;
+    console.log('req: ', req.params.project_id);
+    console.log('action: ', action);
 
-    if(!project.name || !project.description) {
-        res.status(400).json({message: "Missing project name or description"})
+    if(!action.name || !action.project_id) {
+        res.status(400).json({message: "Missing action name or associated project"})
     }
 
-    actionUtils.insert(project)
-        .then(project => res.status(201).json(project))
-        .catch(error => res.status(500).json({message: "Project was not added", error}))
+    actionUtils.insert(action)
+        .then(action => res.status(201).json(action))
+        .catch(error => res.status(500).json({message: "Action was not added", error}))
 })
 
-// DELETE project by ID
+// DELETE action by ID
 router.delete('/:id', (req, res) => {
     actionUtils.remove(req.params.id)
-        .then(project => res.status(200).json({message: "The project was deleted"}))
+        .then(action => res.status(200).json({message: "The action was deleted"}))
+        .catch(error => res.status(500).json({message: 'The action could not be removed'}))
 })
 
 module.exports = router;
