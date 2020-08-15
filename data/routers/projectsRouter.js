@@ -31,6 +31,19 @@ router.post('/', (req, res) => {
         .catch(error => res.status(500).json({message: "Project was not added", error}))
 })
 
+// PUT project (update project)
+router.put('/:id', (req, res) => {
+    let project = req.body;
+
+    if(!project.id) {
+        res.status(400).json({message: "Missing project ID"})
+    }
+
+    projUtils.update(req.params.id, project)
+        .then(project => res.status(200).json(project))
+        .catch(error => res.status(404).json({message: "Project was not updated", error}))
+})
+
 // DELETE project by ID
 router.delete('/:id', (req, res) => {
     projUtils.remove(req.params.id)
