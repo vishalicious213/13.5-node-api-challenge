@@ -25,11 +25,11 @@ router.get('/', (req, res) => {
         .catch(error => res.status(500).json({message: "Error retrieving actions"}))
 })
 
-// GET project by ID
+// GET action by project ID & action ID
 router.get('/:id', (req, res) => {
     actionUtils.get(req.params.id)
-        .then(project => res.status(200).json(project))
-        .catch(error => res.status(500).json({message: "Unable to find project"}))
+        .then(action => res.status(200).json(action))
+        .catch(error => res.status(500).json({message: "Unable to find action"}))
 })
 
 // POST new project (add new project)
