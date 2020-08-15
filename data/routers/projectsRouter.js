@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
         .catch(error => res.status(500).json({message: "Project was not added", error}))
 })
 
-// DELETE project
+// DELETE project by ID
 router.delete('/:id', (req, res) => {
     projUtils.remove(req.params.id)
         .then(project => res.status(200).json({message: "The project was deleted"}))
